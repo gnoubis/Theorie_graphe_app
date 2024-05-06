@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carte de la ville</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h3 class="my-4">Programme d'interconnexion des 10 capitales régionales du cameroun</h3>
+    <form method="POST" class="mb-4">
+        <div class="form-group">
+            <label for="cities">Entrez les noms des villes, séparés par des virgules :</label>
+            <input type="text" id="cities" name="cities" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+    </form>
+    <form action="/clear" method="POST" class="mb-4">
+        <button type="submit" class="btn btn-danger">Effacer</button>
+    </form>
+    <h3 class="my-4">Nœuds dans le graphe :</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ville</th>
+                <th>Coordonnées</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for node in nodes %}
+                <tr>
+                    <td>{{ node[0] }}</td>
+                    <td>{{ node[1]['pos'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3 class="my-4">Distances entre les villes :</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ville 1</th>
+                <th>Ville 2</th>
+                <th>Distance (km)</th>
+            </tr>
+            <thead><tbody>
+              {% for edge in edges %}
+                  <tr>
+                      <td>{{ edge[0] }}</td>
+                      <td>{{ edge[1] }}</td>
+                      <td class="distance">{{ edge[2]['distance']|round(2) }}</td>
+                  </tr>
+              {% endfor %}
+              <tr>
+                  <td colspan="2">Total des distances</td>
+                  <td id="total_distance"></td>
+              </tr>
+          </tbody>
+    </table>
+    <a href="/map" class="btn btn-success mt-4">Voir la carte</a>
+  </div>
+
+  <script>
+    // Calculate the total distance using JavaScript
+    var total_distance = 0;
+    var distances = document.getElementsByClassName('distance');
+    for (var i = 0; i < distances.length; i++) {
+        total_distance += parseFloat(distances[i].innerText);
+    }
+    document.getElementById('total_distance').innerText = total_distance.toFixed(2);
+</script>
+</body>
+</html>
