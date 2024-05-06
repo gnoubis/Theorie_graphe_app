@@ -35,6 +35,3 @@ Ce projet est une application web Flask qui permet de calculer et de visualiser 
 
 ## Contribution
 Les contributions à ce projet sont les bienvenues. Si vous souhaitez contribuer, veuillez forker le dépôt et créer une pull request.
-
-## Licence
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
